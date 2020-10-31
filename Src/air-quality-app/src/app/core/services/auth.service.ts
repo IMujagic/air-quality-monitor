@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { LoginModel } from '../models/login.model';
+import { RegisterModel } from '../models/register.model';
 
 @Injectable({
   providedIn: 'root'
@@ -6,4 +8,5 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   constructor() { }
+
 }
