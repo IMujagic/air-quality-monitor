@@ -1,0 +1,1 @@
+Small Ionic PWA app with NestJS/MongoDB backend
