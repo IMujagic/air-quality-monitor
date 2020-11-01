@@ -1,17 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { MeasurementDto } from './measurement-dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { MeasurementDto } from './dtos/measurement-dto';
+import { Measurement } from './models/measurement.model';
 
 @Injectable()
 export class MeasurementService {
+    constructor(@InjectModel('Measurement') private readonly measurementModel: Model<Measurement>) {}
 
-    fetch(page: number, limit: number): MeasurementDto[] {
-        var e: MeasurementDto[] = [];
+    async fetch(page: number, limit: number): Promise<Measurement[]> {
+        return await this.measurementModel.find()
+            .skip(page*10)
+            .limit(10)
+            .exec();
+    }
 
-        for (let i = 0; i < 100; i++) {
-            let a: MeasurementDto = { country: 'DE', city: 'Munich', index: i, date: new Date().toISOString()};
-            e.push(a);
+    async seed() {
+        for (let index = 1; index < 501; index++) {
+            const newM = new this.measurementModel({
+                country: 'DE',
+                city: 'Munich',
+                index: index * 0.76 * 0.23,
+                measuredOn: new Date()
+            });
+    
+            await newM.save();
         }
-
-        return e.slice((page*limit)-limit, page*limit);
     }
 }
