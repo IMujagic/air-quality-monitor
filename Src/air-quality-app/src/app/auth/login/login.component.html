@@ -5,6 +5,7 @@
         <div text-center>
           <h3>Sign In!</h3>
         </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <div padding>
            <ion-item>
             <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
@@ -14,7 +15,9 @@
           </ion-item>
         </div>
         <div padding>
-          <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Sign In</ion-button>
+          <ion-button  size="large" type="submit" [disabled]="form.invalid || loading" expand="block">
+            <ion-spinner *ngIf="loading"></ion-spinner> Sign In
+          </ion-button>
         </div>
         <div text-right>
           <a routerLink='/auth/register'>Create account</a>
