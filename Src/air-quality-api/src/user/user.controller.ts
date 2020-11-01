@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { LoginUserDto } from './models/login-user-dto';
-import { RegisterUserDto } from './models/register-user-dto';
+import { ResultModel } from 'src/common/result.model';
+import { LoginUserDto } from './dtos/login-user-dto';
+import { RegisterUserDto } from './dtos/register-user-dto';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -8,7 +9,21 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post('register')
-    register(@Body() model: RegisterUserDto): boolean {
-        return this.userService.register(model);
+    async register(@Body() model: RegisterUserDto): Promise<ResultModel> {
+        let id = await this.userService.register(model);
+
+        if(id) {
+            return <ResultModel> {
+                status: 200,
+                message: 'User created!',
+                data: id
+            }
+        } else {
+            return <ResultModel> {
+                status: 400,
+                message: 'Error occured!',
+                data: null
+            }
+        }
     }
 }
