@@ -5,7 +5,7 @@
         <div text-center>
           <h3>Sign In!</h3>
         </div>
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        <div *ngIf="error">{{error}}</div>
         <div padding>
            <ion-item>
             <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>

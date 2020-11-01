@@ -5,6 +5,8 @@
         <div text-center>
           <h3>Create your account!</h3>
         </div>
+        <div *ngIf="error">{{error}}</div>
+        <div *ngIf="success">User added!</div>
         <div padding>
           <ion-item>
             <ion-input  name="name" type="text" placeholder="Name" ngModel required></ion-input>
@@ -16,7 +18,7 @@
             <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
+            <ion-input name="passwordConfirm" type="password" placeholder="Password again" ngModel required></ion-input>
           </ion-item>
         </div>
         <div padding>

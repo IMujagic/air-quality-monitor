@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   register(model: RegisterModel) {
-
+    return this.http.post<any>(`${environment.apiUrl}/users`, model);
   }
 
   getCurrentUser(): User {

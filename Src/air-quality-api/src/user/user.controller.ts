@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
-    @Post('register')
+    @Post()
     async register(@Body() model: RegisterUserDto): Promise<ResultModel> {
         let id = await this.userService.register(model);
 
