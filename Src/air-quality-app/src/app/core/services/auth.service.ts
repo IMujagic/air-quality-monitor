@@ -24,7 +24,7 @@ export class AuthService {
 
   }
 
-  currentUserValue(): User {
+  getCurrentUser(): User {
     return <User>JSON.parse(localStorage.getItem(environment.storageKey));
   }
 
