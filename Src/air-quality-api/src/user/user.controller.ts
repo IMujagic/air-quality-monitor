@@ -9,21 +9,7 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post()
-    async register(@Body() model: RegisterUserDto): Promise<ResultModel> {
-        let id = await this.userService.register(model);
-
-        if(id) {
-            return <ResultModel> {
-                status: 200,
-                message: 'User created!',
-                data: id
-            }
-        } else {
-            return <ResultModel> {
-                status: 400,
-                message: 'Error occured!',
-                data: null
-            }
-        }
+    async register(@Body() model: RegisterUserDto): Promise<string> {
+        return await this.userService.register(model);
     }
 }
