@@ -1,9 +1,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let item of measurements">
-      <ion-avatar slot="start">
-        <img [src]="item.flagUrl" alt="">
-      </ion-avatar>
+      <span class="flag-icon flag-icon-{{item.country}}"></span>
       <ion-label>
         <ion-text>
           <h2>{{item.city}}</h2>
