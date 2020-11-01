@@ -4,14 +4,28 @@ import { RegisterUserDto } from './models/register-user-dto';
 
 @Injectable()
 export class UserService {
-    
-    checkCredentials(model: LoginUserDto): boolean {
-        if(model.email == 'test@test.com' && model.password == '1234') {
-            return true;
-        }
-        else {
-            return false;
-        }
+    private readonly users: LoginUserDto[];
+
+    // TODO: remove this and check against db
+    constructor() {
+        this.users = [
+            {
+                email: 'john@test.com',
+                password: 'changeme',
+            },
+            {
+                email: 'chris@test.com',
+                password: 'secret',
+            },
+            {
+                email: 'maria@test.com',
+                password: 'guess',
+            },
+        ];
+    }
+
+    async findUser(email: string): Promise<LoginUserDto> {
+        return this.users.find(user => user.email === email);
     }
 
     register(user: RegisterUserDto): boolean {
