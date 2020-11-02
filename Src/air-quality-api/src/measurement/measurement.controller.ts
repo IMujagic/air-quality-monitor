@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { MeasurementDto } from './dtos/measurement-dto';
 import { MeasurementService } from './measurement.service';
-import { Measurement } from './models/measurement.model';
 
 @Controller('measurements')
 export class MeasurementController {
@@ -9,12 +9,7 @@ export class MeasurementController {
 
     @UseGuards(JwtAuthGuard)
     @Get()
-    async getList(@Query() page: string): Promise<Measurement[]> {
+    async getList(@Query() page: string): Promise<MeasurementDto[]> {
         return await this.measurementService.fetch(page);
-    }
-
-    @Get('seed')
-    seed() {
-        this.measurementService.seed();
     }
 }
