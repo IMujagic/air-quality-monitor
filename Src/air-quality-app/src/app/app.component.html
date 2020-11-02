@@ -2,9 +2,7 @@
 <ion-app>
   <ion-menu side="start" menuId="first" contentId="main" [hidden]="!showMenu">
     <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Air Quality</ion-title>
-      </ion-toolbar>
+     
     </ion-header>
     <ion-content>
       <ion-list>
@@ -14,11 +12,12 @@
   </ion-menu>
   <div class="ion-page" id="main">
     <ion-header [translucent]="true">
-      <ion-toolbar [hidden]="!showMenu">
-        <ion-buttons slot="start">
+      <ion-toolbar >
+        <ion-buttons slot="start" [hidden]="!showMenu">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
       </ion-toolbar>
+      
     </ion-header>
     <ion-content>
       <ion-router-outlet></ion-router-outlet>

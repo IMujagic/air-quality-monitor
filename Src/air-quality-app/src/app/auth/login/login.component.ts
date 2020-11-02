@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         },
         error => {
-          this.error = error;
+          this.error = 'Wrong credentials!';
           this.loading = false;
         });
   }

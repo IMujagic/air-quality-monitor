@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject(this.getCurrentUser() !== null);
 
   constructor(
     private http: HttpClient,
