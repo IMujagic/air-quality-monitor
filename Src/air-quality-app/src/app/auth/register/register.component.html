@@ -20,8 +20,11 @@
           </ion-item>
         </div>
         <div padding>
-          <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+          <ion-button  size="large" type="submit" [disabled]="form.invalid || loading" expand="block">Register</ion-button>
         </div>
+        <ion-text *ngFor="let error of errors" color="danger">
+          <p>{{error}}</p>
+        </ion-text>
         <div text-right>
           <a routerLink='/auth/login'>Sign In</a>
         </div>

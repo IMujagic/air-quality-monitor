@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { LoginModel } from 'src/app/core/models/login.model';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -12,12 +12,21 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class LoginComponent implements OnInit {
   loading: boolean;
   error: string;
+  sub: any;
+  message: string | number;
 
   constructor(
     private authService: AuthService,
+    private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.sub = this.route
+      .queryParams
+      .subscribe(params => {
+        this.message = params['message'] || '';
+      });
+  }
 
   login(e) {
     if (e.form.invalid) {
@@ -41,4 +50,7 @@ export class LoginComponent implements OnInit {
         });
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }

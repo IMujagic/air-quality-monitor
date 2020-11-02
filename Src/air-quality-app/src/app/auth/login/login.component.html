@@ -5,6 +5,9 @@
         <div text-center>
           <h3>Sign In!</h3>
         </div>
+        <ion-text *ngIf="message" color="success">
+          <p>{{message}}</p>
+        </ion-text>
         <div padding>
            <ion-item>
             <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>

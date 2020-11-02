@@ -14,7 +14,7 @@ export class UserService {
         return this.userModel.findOne({ email: email }).exec();
     }
 
-    async register(user: RegisterUserDto): Promise<string> {
+    async register(user: RegisterUserDto): Promise<any> {
         const existingUser = await this.findUser(user.email);
 
         if(existingUser !== null) {
@@ -29,7 +29,7 @@ export class UserService {
 
             const result = await newUser.save();
 
-            return result.id;
+            return { id: result.id };
         }
     }
 }

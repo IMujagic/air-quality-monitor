@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { error } from 'protractor';
 import { RegisterModel } from 'src/app/core/models/register.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -10,9 +12,11 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class RegisterComponent implements OnInit {
   loading = false;
   success = false;
-  error = '';
+  errors = [];
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {}
 
@@ -25,17 +29,22 @@ export class RegisterComponent implements OnInit {
       password: form.controls.password.value,
       passwordConfirm: form.controls.passwordConfirm.value
     }
-
+    this.errors = [];
+    this.loading = true;
     this.authService.register(registerModel)
       .subscribe(
         data => {
-          this.loading = false;
-          this.success = true;
+          this.router.navigate(['/auth/login'], { queryParams: { message: `User created. Please login!` }});
         },
         error => {
-          this.error = error;
-          this.loading = false;
-        });
+          if(Array.isArray(error)) {
+            this.errors = this.errors.concat(error);
+          } else {
+            this.errors.push(error);
+          }
+        },
+        () => { this.loading = false;} 
+      );
   }
 
 }
