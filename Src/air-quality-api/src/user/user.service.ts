@@ -1,4 +1,4 @@
-import { Injectable, Post } from '@nestjs/common';
+import { ConflictException, Injectable, Post } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LoginUserDto } from './dtos/login-user-dto';
@@ -15,30 +15,21 @@ export class UserService {
     }
 
     async register(user: RegisterUserDto): Promise<string> {
-        if(!this.isValid(user)) {
-            return null;
+        const existingUser = await this.findUser(user.email);
+
+        if(existingUser !== null) {
+            throw new ConflictException('User already exists!');
+        } else {
+            const hashed = await bcrypt.hash(user.password, 10);
+            const newUser = new this.userModel({
+                name: user.name,
+                email: user.email,
+                password: hashed
+            });
+
+            const result = await newUser.save();
+
+            return result.id;
         }
-
-        const hashed = await bcrypt.hash(user.password, 10);
-        const newUser = new this.userModel({
-            name: user.name,
-            email: user.email,
-            password: hashed
-        });
-
-        const result = await newUser.save();
-
-        return result.id;
-    }
-
-    private isValid(user: RegisterUserDto): boolean {
-        if(!user.password || user.password.length < 4) {
-            return false;
-        }
-        if(user.password !== user.passwordConfirm) {
-            return false;
-        }
-
-        return true;
     }
 }
