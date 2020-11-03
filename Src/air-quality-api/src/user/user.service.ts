@@ -5,6 +5,7 @@ import { LoginUserDto } from './dtos/login-user-dto';
 import { RegisterUserDto } from './dtos/register-user-dto';
 import { User } from './models/user.model';
 import * as bcrypt from 'bcrypt';
+import { use } from 'passport';
 
 @Injectable()
 export class UserService {
@@ -24,6 +25,7 @@ export class UserService {
             const newUser = new this.userModel({
                 name: user.name,
                 email: user.email,
+                city: user.city,
                 password: hashed
             });
 

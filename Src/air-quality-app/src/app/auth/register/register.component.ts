@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   loading = false;
   success = false;
   errors = [];
+  sub = null;
 
   constructor(
     private authService: AuthService,
@@ -26,12 +27,13 @@ export class RegisterComponent implements OnInit {
     const registerModel = <RegisterModel> {
       name: form.controls.name.value,
       email: form.controls.email.value,
+      city: form.controls.city.value,
       password: form.controls.password.value,
       passwordConfirm: form.controls.passwordConfirm.value
     }
     this.errors = [];
     this.loading = true;
-    this.authService.register(registerModel)
+    this.sub = this.authService.register(registerModel)
       .subscribe(
         data => {
           this.router.navigate(['/auth/login'], { queryParams: { message: `User created. Please login!` }});
@@ -42,9 +44,14 @@ export class RegisterComponent implements OnInit {
           } else {
             this.errors.push(error);
           }
-        },
-        () => { this.loading = false;} 
-      );
+        }
+      )
+      .add(() => {
+        this.loading = false;
+      });
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }
