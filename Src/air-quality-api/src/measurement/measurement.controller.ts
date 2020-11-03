@@ -12,4 +12,9 @@ export class MeasurementController {
     async getList(@Query() page: string): Promise<MeasurementDto[]> {
         return await this.measurementService.fetch(page);
     }
+
+    @Get('seed')
+    seed() {
+        this.measurementService.seed();
+    }
 }

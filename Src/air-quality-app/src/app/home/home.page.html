@@ -3,8 +3,9 @@
     <ion-item *ngFor="let item of measurements">
       <ion-label>
         <ion-text>
-          <p><span class="flag-icon flag-icon-{{item.country}} flag-icon-squared"></span> {{item.city}}</p>
-          <p>Index: {{item.index | number:"1.2-2" }}</p> <p>{{ item.label }}</p>
+          <p><span class="flag-icon flag-icon-{{item.country}} flag-icon-squared"></span> Population {{ item.population | number }}</p>
+          <p>City: {{item.city}}</p>
+          <p>Index: {{item.index | number:"1.2-2" }}</p> <strong>{{ item.label }}</strong>
         </ion-text>
         <ion-text color="medium">
           <p>Measured on: {{item.date | date:"dd.MM.yyyy"}}</p>
