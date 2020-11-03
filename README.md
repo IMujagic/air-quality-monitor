@@ -1,10 +1,10 @@
 Small Ionic PWA app with NestJS/MongoDB backend
 
---
+---
 **NOTE**
  - Project is still not finished
  - Documentation and run instractions are still in progress
---
+---
 
 ### Frontend
 
