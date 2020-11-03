@@ -1,5 +1,11 @@
 Small Ionic PWA app with NestJS/MongoDB backend
 
+--
+**NOTE**
+ - Project is still not finished
+ - Documentation and run instractions are still in progress
+--
+
 ### Frontend
 
 Frontend part is built using Ionic framework. 
@@ -17,5 +23,9 @@ Backend part is built using NestJS framework. It uses the MongoDB as a database.
 Starting the api:
 
 `cd Src/air-quality-api`
-`npm run start`
+`nest start`
+
+#### MongoDB Seed
+
+Still in progress...
 
