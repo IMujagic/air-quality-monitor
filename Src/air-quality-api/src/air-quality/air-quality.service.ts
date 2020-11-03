@@ -8,13 +8,16 @@ import { AirQualityDto } from './dtos/air-quality-dto';
 export class AirQualityService {
     constructor(@InjectModel('AirQualityIndex') private readonly airQualityIndexModel: Model<AirQualityIndex>) { }
 
-    async fetch(p: number): Promise<AirQualityDto[]> {
-        var limit = 10; //TODO: read from param or config
-        var skip = p && p > 0 ? ((p-1) * limit) : 0;
-
+    async fetch(p: number, city: string): Promise<AirQualityDto[]> {
+        const limit = 10; //TODO: read from param or config
+        const skip = p && p > 0 ? ((p-1) * limit) : 0;
+        const selector = city ? { 'measurements.city': city } : {}
+        const sort = city ? { 'measurements.measuredOn': -1 } : { 'measurements.index': -1 }
+        
         var docs = await this.airQualityIndexModel.aggregate([
             { $unwind: '$measurements' },
-            { $sort: { 'measurements.index': -1 }}
+            { $match: selector },
+            { $sort: sort}
         ])
         .skip(Number(skip))
         .limit(Number(limit));

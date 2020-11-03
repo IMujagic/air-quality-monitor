@@ -10,9 +10,10 @@ import { AirQualityService } from '../core/services/air-quality.service';
 export class HomePage {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   
-  url: string;
   measurements = [];
   page = 1;
+  segment = 'my';
+  
   constructor(private airQualityService: AirQualityService) {}
 
   ngOnInit() {
@@ -20,7 +21,7 @@ export class HomePage {
   }
 
   loadMore(event, initialLoad: boolean) {
-    this.airQualityService.fetch(this.page)
+    this.airQualityService.fetch(this.page, this.segment)
       .subscribe((data: any[]) => {
 
         this.measurements = this.measurements.concat(data);
@@ -32,5 +33,12 @@ export class HomePage {
       }, error => {
         console.log(error);
       })
+  }
+
+  segmentChanged(event) {
+    this.page = 1;
+    this.measurements = [];
+    this.segment = event.detail.value;
+    this.loadMore({}, true);
   }
 }

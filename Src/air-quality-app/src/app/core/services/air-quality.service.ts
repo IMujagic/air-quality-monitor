@@ -4,15 +4,24 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AirQualityIndexModel } from '../models/air-quality-index.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AirQualityService {
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService) { }
 
-  fetch(page: number): Observable<AirQualityIndexModel[]> {
-    return this.http.get<AirQualityIndexModel[]>(environment.apiUrl + '/air-quality-indexes?page='+page)
+  fetch(page: number, segment: string): Observable<AirQualityIndexModel[]> {
+    let route = '/air-quality-indexes?page='+page;
+
+    if(segment === 'my') {
+      route += '&city='+this.authService.getCurrentUser().city;
+    }
+
+    return this.http.get<AirQualityIndexModel[]>(environment.apiUrl + route)
       .pipe(map((models: AirQualityIndexModel[]) => {
         models.map(model => {
           const labelAndColor = this.getAirQualityLabelAndColor(model.index);

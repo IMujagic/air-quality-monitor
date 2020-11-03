@@ -10,6 +10,6 @@ export class AirQualityController {
     @UseGuards(JwtAuthGuard)
     @Get()
     async getList(@Query() params: any): Promise<AirQualityDto[]> {
-        return await this.airQualityService.fetch(Number(params.page));
+        return await this.airQualityService.fetch(Number(params.page), params.city);
     }
 }

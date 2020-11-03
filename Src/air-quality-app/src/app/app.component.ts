@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './core/services/auth.service';
+import { User } from './core/models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent {
   showMenu = false;
+  user: User;
 
   constructor(
     private platform: Platform,
@@ -24,6 +26,7 @@ export class AppComponent {
     this.authService.isLoggedIn
       .subscribe(isLoggedIn => {
         this.showMenu = isLoggedIn;
+        this.user = this.authService.getCurrentUser();
       })
   }
 

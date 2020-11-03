@@ -2,7 +2,9 @@
 <ion-app>
   <ion-menu side="start" menuId="first" contentId="main" [hidden]="!showMenu">
     <ion-header>
-     
+      <ion-toolbar color="primary">
+        <ion-title>Air Quality Monitor</ion-title>
+      </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
@@ -16,6 +18,7 @@
         <ion-buttons slot="start" [hidden]="!showMenu">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
+        <ion-title>Welcome {{ user.name }}!</ion-title>
       </ion-toolbar>
       
     </ion-header>
