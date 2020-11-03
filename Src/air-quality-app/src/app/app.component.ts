@@ -25,8 +25,10 @@ export class AppComponent {
 
     this.authService.isLoggedIn
       .subscribe(isLoggedIn => {
+        if(isLoggedIn) {
+          this.user = this.authService.getCurrentUser();
+        }
         this.showMenu = isLoggedIn;
-        this.user = this.authService.getCurrentUser();
       })
   }
 
