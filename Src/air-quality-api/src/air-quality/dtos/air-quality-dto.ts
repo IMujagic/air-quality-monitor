@@ -1,4 +1,4 @@
-export class MeasurementDto {
+export class AirQualityDto {
     country: string;
     population: number;
     city: string;

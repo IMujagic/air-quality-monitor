@@ -1,4 +1,4 @@
-export class MeasurementModel {
+export class AirQualityIndexModel {
     country: string;
     population: number;
     city: string;

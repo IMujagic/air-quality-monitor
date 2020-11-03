@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AirQualityIndex, Measurement } from './models/measurement.model';
+import { AirQualityIndex, Measurement } from './models/air-quality.schema';
 import { Model } from 'mongoose';
-import { MeasurementDto } from './dtos/measurement-dto';
+import { AirQualityDto } from './dtos/air-quality-dto';
 
 @Injectable()
-export class MeasurementService {
+export class AirQualityService {
     constructor(@InjectModel('AirQualityIndex') private readonly airQualityIndexModel: Model<AirQualityIndex>) { }
 
-    async fetch(p: string): Promise<MeasurementDto[]> {
+    async fetch(p: string): Promise<AirQualityDto[]> {
         const l = 5; //TODO: read from param or config
         const options = { skip: parseInt(p)*30, limit: l}
 
@@ -16,7 +16,7 @@ export class MeasurementService {
             
         
         return docs 
-            .map(x => <MeasurementDto> 
+            .map(x => <AirQualityDto> 
             {
                 country: x.country,
                 population: x.population,
