@@ -12,7 +12,7 @@ export class AirQualityService {
   constructor(private http: HttpClient) { }
 
   fetch(page: number): Observable<AirQualityIndexModel[]> {
-    return this.http.get<AirQualityIndexModel[]>(environment.apiUrl + '/air-quality-indexes?page='+page+'&limit=' + environment.pageSize)
+    return this.http.get<AirQualityIndexModel[]>(environment.apiUrl + '/air-quality-indexes?page='+page)
       .pipe(map((models: AirQualityIndexModel[]) => {
         models.map(model => {
           const labelAndColor = this.getAirQualityLabelAndColor(model.index);
