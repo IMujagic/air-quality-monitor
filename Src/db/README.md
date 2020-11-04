@@ -8,7 +8,7 @@
 `mongo`
 
 4. Add default user
-bash```
+```bash
     use air_quality
     db.createUser({user: 'air_quality_api', pwd: ads_password, roles: [{role: 'readWrite', db: 'air_quality'}]})
 ```
