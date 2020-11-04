@@ -13,6 +13,8 @@ COPY . ./
 RUN ng build --prod
 
 FROM nginx
+
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=base-image /app/www /usr/share/nginx/html
 
 CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
