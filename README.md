@@ -26,4 +26,10 @@ Project supports docker and it can be started using `docker-compose`:
 3. Set env vars and run the project:`sudo JWT_SECRET="" DB_USER="" DB_PASS="" docker-compose up` :
     - Frontend will http://localhost:8081
     - Backend http://localhost:3000
-
+    - Both parts, frontend and backend, support configuration with ENV vars (provided with docker-compose).
+4. When everything is up and running restore the MongoDB dump:
+    - DB dump can be found under `Src/db/dump` folder
+    - Restore dump using mongorestore tool: `mongorestore -h localhost:27017 __PATH_TO_PROJECT__/Src/db/dump/ `
+5. This will create two collections:
+    - `air-quality-indexes` with 15 countries + each country has 25 measurements (subdocuments)
+    - `users` with default user that can be used for login (username: test@test.com, pass: 1234aQ) 
