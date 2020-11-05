@@ -18,10 +18,10 @@ import { TokenHeaderInterceptor } from './core/interceptors/token-header.interce
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule, 
-    HttpClientModule, 
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,
