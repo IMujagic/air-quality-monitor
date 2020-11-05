@@ -23,13 +23,21 @@ Project supports docker and it can be started using `docker-compose`:
 
 1. `cd Src/`
 2. `docker-compose build`
-3. Set env vars and run the project:`sudo JWT_SECRET="" DB_USER="" DB_PASS="" docker-compose up` :
-    - Frontend will http://localhost:8081
+3. First time **start only db service** and add initial data
+    - `docker-compose up air-quality-db`
+    - When the container is running we need to add our inital user:
+        - Open container bash: `docker container exec -it air-mongodb bash`
+        - Open mongo: `mongo`
+        - Switch to db `use air_quality`
+        - Add user: `db.createUser({user: 'air_quality_api', pwd: YOUR_PASSWORD, roles: [{role: 'readWrite', db: 'air_quality'}]})`
+        - Exit the mongo shell and container bash
+    - Restore DB dump (DB dump can be found under `Src/db/dump` folder):
+        - `mongorestore -h localhost:27017 __PATH_TO_PROJECT__/Src/db/dump/`
+    - This will create two collections:
+        - `air-quality-indexes` with 15 countries + each country has 25 measurements (subdocuments)
+        - `users` with default user that can be used for login (username: test@test.com, pass: 1234aQ) 
+4. When the database is populated **stop the container** (**Do not delete the container because no volume is configured**)
+5. Set ENV vars and run all services:`sudo JWT_SECRET="" DB_USER="air_quality_api" DB_PASS="" docker-compose up -d` :
+    - Frontend will http://localhost:8081 (***Use pre-defined demo username: `test@test.com` and password: `1234aQ`***)
     - Backend http://localhost:3000
     - Both parts, frontend and backend, support configuration with ENV vars (provided with docker-compose).
-4. When everything is up and running restore the MongoDB dump:
-    - DB dump can be found under `Src/db/dump` folder
-    - Restore dump using mongorestore tool: `mongorestore -h localhost:27017 __PATH_TO_PROJECT__/Src/db/dump/ `
-5. This will create two collections:
-    - `air-quality-indexes` with 15 countries + each country has 25 measurements (subdocuments)
-    - `users` with default user that can be used for login (username: test@test.com, pass: 1234aQ) 
