@@ -1,4 +1,4 @@
-FROM node:latest AS base-image
+FROM node:12.9.0 AS base-image
 
 RUN npm install -g @angular/cli
 WORKDIR /app
