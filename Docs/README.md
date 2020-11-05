@@ -31,6 +31,8 @@ This project has 3 parts:
 			"index" : 3,
 			"measuredOn" : "2020-11-04T20:48:56.762+01:00"
 		},
+	]
+}
 ```
 - For storing user profiles (registrations) there is another collection `users`
 
