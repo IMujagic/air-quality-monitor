@@ -38,6 +38,6 @@ Project supports docker and it can be started using `docker-compose`:
         - `users` with default user that can be used for login (username: test@test.com, pass: 1234aQ) 
 4. When the database is populated **stop the container** (**Do not delete the container because no volume is configured**)
 5. Set ENV vars and run all services:`sudo JWT_SECRET="" DB_USER="air_quality_api" DB_PASS="" docker-compose up -d` :
-    - Frontend will http://localhost:8081 (***Use pre-defined demo username: `test@test.com` and password: `1234aQ`***)
+    - Frontend  http://localhost:8081 (***Use pre-defined demo username: `test@test.com` and password: `1234aQ`***)
     - Backend http://localhost:3000
-    - Both parts, frontend and backend, support configuration with ENV vars (provided with docker-compose).
+    - Both parts, frontend and backend, support configuration with ENV vars (provided with docker-compose - see above).
