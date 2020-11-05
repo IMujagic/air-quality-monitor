@@ -1,5 +1,38 @@
 version: '3.3'
 services:
+  air-quality-app:
+    container_name: air-quality-app
+    image: nginx-angular
+    build:
+      context: ./air-quality-app
+      dockerfile: Dockerfile
+    environment:
+      - API_URL=http://localhost:3000
+      - STORAGE_KEY=mystoragekey
+    ports:
+      - "8081:80"
+    depends_on:
+      - air-quality-api
+    networks:
+      - air-quality-network
+
+  air-quality-api:
+    container_name: air-quality-api
+    image: nest-service
+    build:
+      context: ./air-quality-api
+      dockerfile: Dockerfile
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - ALLOW_ORIGIN=http://localhost:8081
+      - DATABASE_URI=mongodb://${DB_USER}:${DB_PASS}@air-quality-db/air_quality
+    ports:
+      - "3000:3000"
+    depends_on:
+      - air-quality-db
+    networks:
+      - air-quality-network
+
   air-quality-db:
     container_name: air-mongodb
     image: mongo
@@ -7,6 +40,7 @@ services:
       - "27017:27017"
     networks:
       - air-quality-network
+
 networks:
   air-quality-network:
     driver: bridge
