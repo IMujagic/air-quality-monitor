@@ -60,5 +60,5 @@ Project has following Angular modules:
 
 ## Basic architecture diagram
 
-![alt text](./Docs/basic-diagram.png?raw=true)
+![alt text](basic-diagram.png?raw=true)
 
