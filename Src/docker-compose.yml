@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  air-quality-db:
+    container_name: air-mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - air-quality-network
+networks:
+  air-quality-network:
+    driver: bridge
