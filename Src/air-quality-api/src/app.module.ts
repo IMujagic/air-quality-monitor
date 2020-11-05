@@ -14,7 +14,6 @@ import { ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       load: [configuration],
     }),
-    //MongooseModule.forRoot('mongodb://air_quality_api:!demo_api1@localhost:27017/air_quality'),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
